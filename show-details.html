@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <!-- Define the curve path -->
+        <path id="curve" d="M50,150 Q250,50 450,150" fill="transparent" stroke="none" />
+        
+        <!-- Text following the curve -->
+         <a href="/">
+
+           <text width="500" font-size="6rem">
+             <textPath xlink:href="#curve" startOffset="50%" text-anchor="middle">
+              Weblix
+             </textPath>
+           </text>
+
+         </a>
+      </svg>
+    </div>
+
+    <nav class="header-right">
+      <ul>
+        <li>
+          <a href="/" class="nav-link">Movies</a>
+        </li>
+        <li>
+          <a href="/shows.html" class="nav-link">TV</a>
+        </li>
+      </ul>      
+      
+    </nav>
+</header>
+
+  
+</body>
+</html>
