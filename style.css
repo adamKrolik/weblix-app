@@ -17,13 +17,18 @@
 }
 
 body {
-  background-color: rgb(20, 20, 20);
+  /* background-color: rgb(6, 21, 63); */
+  background: rgb(9,12,74);
+  background: linear-gradient(180deg, rgba(9,12,74,1) 0%, rgba(37,48,95,1) 25%, rgba(37,48,95,1) 50%, rgba(37,48,95,1) 75%, rgba(9,12,74,1) 100%);
+  background-repeat: no-repeat;
+  min-height: 100vh;
   color: var(--color-primary);
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   font-style: normal;
   margin-left: 20px;
   margin-right: 20px;
+  
 }
 
 header {
