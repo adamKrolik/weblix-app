@@ -10,22 +10,23 @@
 <body>
 
   <header>
-    <div class="header-left">
-      <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <!-- Define the curve path -->
-        <path id="curve" d="M50,150 Q250,50 450,150" fill="transparent" stroke="none" />
-        
-        <!-- Text following the curve -->
-         <a href="/">
+    <div class="header-container">
+      <div class="header-left">
+        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <!-- Define the curve path -->
+          <path id="curve" d="M50,150 Q250,50 450,150" fill="transparent" stroke="none" />
+          
+          <!-- Text following the curve -->
+          <a href="/">
 
-           <text width="500" font-size="6rem">
-             <textPath xlink:href="#curve" startOffset="50%" text-anchor="middle">
-              Weblix
-             </textPath>
-           </text>
+            <text width="500" font-size="6rem">
+              <textPath xlink:href="#curve" startOffset="50%" text-anchor="middle">
+                Weblix
+              </textPath>
+            </text>
 
-         </a>
-      </svg>
+          </a>
+        </svg>
     </div>
 
     <nav class="header-right">
@@ -39,6 +40,7 @@
       </ul>      
       
     </nav>
+  </div>
 </header>
 
 <section class="container">

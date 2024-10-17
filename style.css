@@ -12,7 +12,7 @@
 }
 
 :root {
-  --color-primary: white;
+  --color-primary: rgb(255, 255, 255);
   --color-secondary: #0659a7;
 }
 
@@ -26,12 +26,16 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   font-style: normal;
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 20px;
+  margin-right: 20px; */
   
 }
 
-header {
+header {  
+  background-color: rgb(0, 0, 0);
+}
+
+.header-container {
   display: flex;
   max-width: 1200px;
   width: 100%;
@@ -55,7 +59,7 @@ text {
   font-family: "Titan One", sans-serif;
   font-weight: 800;
   font-style: normal;
-  fill: var(--color-secondary);
+  fill: var(--color-primary);
   text-shadow: 0px 0px 1px rgb(0, 0, 0);
   text-transform: uppercase;
 }
@@ -87,6 +91,7 @@ ul {
   max-width: 1200px;
   width: 100%;
   margin: 20px auto;
+  padding: 10px;
 }
 
 .container h2 {
@@ -121,4 +126,38 @@ ul {
 
 .card:hover {
   transform: scale(1.05);
+}
+
+.backBtn {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+  background-color: transparent;
+  width: 160px;
+  text-align: center;
+  padding: 7px;
+  margin-bottom: 20px;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+}
+
+.backBtn:hover {
+  background-color: var(--color-secondary);
+}
+
+.movie-details {
+  display: flex;
+  gap: 20px;
+}
+
+.movie-details h3 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.movie-details div {
+  align-self: center;
 }
