@@ -91,6 +91,69 @@ async function displayPopularShows() {
   
 }
 
+async function displayMovieDetails() {
+  const movieId = window.location.search.split('=')[1];
+  
+  const movie = await fetchAPIData(`movie/${movieId}`);
+
+  const div = document.createElement('div');
+  div.innerHTML =
+   `
+    <div class="flex-container">
+        <div class="item">
+          <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.original_title}">
+        </div>
+    
+        <div class="item">
+          <h2>${movie.original_title}</h2>
+          <p>${movie.vote_average.toFixed(1)} / 10</p>
+          <br>
+          <p>Release Date: ${movie.release_date}</p>
+          <br>
+          <p>
+            ${movie.overview}
+          </p>
+
+          <br>
+
+          <b><small>Genres</small></b>
+          ${
+            movie.genres.map((genre) => `<p>${genre.name}</p>`).join('')
+          }
+
+          <br>
+
+          <a href="${movie.homepage}" target="_blank" class="backBtn">Visit Movie Homepage</a>
+          
+        </div>
+      </div>
+
+      <div class="flex-container-bottom">
+        <h3>MOVIE INFO</h3>
+        <p class="movie-info"><span>Budget: </span>$${addCommasToNumber(movie.budget)}</p>
+        <p class="movie-info"><span>Revenue: </span>$${addCommasToNumber(movie.revenue)}</p>
+        <p class="movie-info"><span>Runtime: </span>${movie.runtime} minutes</p>
+        <p class="movie-info"><span>Status: </span>${movie.status}</p>
+
+        <h4>Production Companies</h4>
+        <p>
+        ${
+          movie.production_companies.map((company) => `<span>${company.name}</span>`).join(', ')
+        }
+        </p>
+
+      </div>
+    `
+  ;
+  document.getElementById('movie-details').appendChild(div);
+
+  console.log(movie);
+}
+
+function addCommasToNumber(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 function highlightActiveLink() {  
   const links = document.querySelectorAll('.nav-link');
 
@@ -113,7 +176,7 @@ function init() {
       break;
 
     case "/movie-details.html":
-
+      displayMovieDetails();
       break;
 
     case "/show-details.html":
