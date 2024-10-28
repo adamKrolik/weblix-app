@@ -18,6 +18,26 @@ async function fetchAPIData(endpoint) {
   
 }
 
+function displayBackdropImage(backdrop) {
+  const container = document.querySelector('.flex-container');
+  
+  const div = document.createElement('div');
+  div.setAttribute('class', 'backdrop_image');
+  div.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${backdrop})`;
+  div.style.width = '100vw';
+  div.style.height = '100vh';
+  div.style.backgroundRepeat ='no-repeat';
+  div.style.backgroundSize = 'cover';
+  div.style.backgroundPosition = 'center';
+  div.style.position = 'absolute';
+  div.style.top = '0';
+  div.style.left = '0';
+  div.style.zIndex = '-1';
+  div.style.opacity = '0.1';
+
+  container.appendChild(div);
+}
+
 async function displayPopularMovies() {
   const data = await fetchAPIData('movie/popular');
 
@@ -147,6 +167,68 @@ async function displayMovieDetails() {
   ;
   document.getElementById('movie-details').appendChild(div);
 
+  displayBackdropImage(movie.backdrop_path);
+
+  console.log(movie);
+}
+
+async function displayShowDetails() {
+  const showId = window.location.search.split('=')[1];
+  
+  const show = await fetchAPIData(`tv/${showId}`);
+
+  const div = document.createElement('div');
+  div.innerHTML =
+   `
+    <div class="flex-container">
+        <div class="item">
+          <img src="https://image.tmdb.org/t/p/w500${show.poster_path}" alt="${show.original_name}">
+        </div>
+    
+        <div class="item">
+          <h2>${show.original_name}</h2>
+          <p>${show.vote_average.toFixed(1)} / 10</p>
+          <br>
+          <p>Release Date: ${show.first_air_date}</p>
+          <br>
+          <p>
+            ${show.overview}
+          </p>
+
+          <br>
+
+          <b><small>Genres</small></b>
+          ${
+            show.genres.map((genre) => `<p>${genre.name}</p>`).join('')
+          }
+
+          <br>
+
+          <a href="${show.homepage}" target="_blank" class="backBtn">Visit Show Homepage</a>
+          
+        </div>
+      </div>
+
+      <div class="flex-container-bottom">
+        <h3>TV SHOW INFO</h3>
+        <p class="movie-info"><span>Number Of Episodes: </span>${show.number_of_episodes}</p>
+        <p class="movie-info"><span>Last Episode To Air: </span>${show.last_episode_to_air.name}</p>        
+        <p class="movie-info"><span>Status: </span>${show.status}</p>
+
+        <h4>Production Companies</h4>
+        <p>
+        ${
+          show.production_companies.map((company) => `<span>${company.name}</span>`).join(', ')
+        }
+        </p>
+
+      </div>
+    `
+  ;
+  document.getElementById('movie-details').appendChild(div);
+
+  displayBackdropImage(show.backdrop_path);
+
   console.log(movie);
 }
 
@@ -180,7 +262,7 @@ function init() {
       break;
 
     case "/show-details.html":
-
+      displayShowDetails();
       break;
   }
 
