@@ -1,5 +1,11 @@
 const global = {
   currentPage: window.location.pathname,
+  search: {
+    term: '',
+    type: '',
+    page: 1,
+    totalPages: 1,
+  },
   api: {
     api_url: 'https://api.themoviedb.org/3/',
     api_key: '85224ca8af08fad3c24c59d4c233bca1',
@@ -16,6 +22,83 @@ async function fetchAPIData(endpoint) {
 
   return data;
   
+}
+
+// Search Movies/Shows
+async function search() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  global.search.type = urlParams.get('type');
+  global.search.term = urlParams.get('search-term');
+
+  if(global.search.term !== '' && global.search.term !== null) {
+    const { results, total_pages, page } = await searchAPIData();
+    if(results.length === 0) {
+      showAlert('No results found');
+      return;
+    } 
+
+    displaySearchResults(results);
+
+    document.querySelector('#search-term').value = '';
+    
+  } else {
+    showAlert('Please enter a search term');
+  }
+}
+
+function displaySearchResults(results) {
+  results.forEach((result) => {
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.innerHTML = `
+      <a href="/${global.search.type === 'movie' ? 'movie' : 'show'}-details.html?id=${result.id}">   
+        ${
+          result.poster_path
+          ?
+          `
+            <img src="https://image.tmdb.org/t/p/w500${result.poster_path}" alt="${global.search.type === 'movie' ? result.title : result.name}">
+          `
+          :
+          `
+          <img src="images/no-image.png" alt="${global.search.type === 'movie' ? result.title : result.name}">
+          `
+        }    
+                
+      </a>
+      <div class="card-body">
+        <h5>${global.search.type === 'movie' ? result.title : result.name}</h5>
+        <p class="card-text">
+          <small class="text-muted">Release date: ${global.search.type === 'movie' ? result.release_date : result.first_air_date}</small>
+        </p>
+      </div>
+    `;
+
+    document.getElementById('search-results').appendChild(div);
+  })
+}
+
+async function searchAPIData() {
+  const API_URL = global.api.api_url;
+  const API_KEY = global.api.api_key;
+
+  const response = await fetch(`${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`);
+  
+  const data = await response.json();
+
+  return data;
+  
+}
+
+// Show Alert
+function showAlert(message, className = 'error') {
+  const alertEl = document.createElement('div');
+  alertEl.classList.add('alert', className);
+  alertEl.appendChild(document.createTextNode(message));
+  document.querySelector('#alert').appendChild(alertEl);
+
+  setTimeout(() => alertEl.remove(), 3000);
 }
 
 async function displaySlider() {
@@ -214,7 +297,6 @@ async function displayMovieDetails() {
 
   displayBackdropImage(movie.backdrop_path);
 
-  console.log(movie);
 }
 
 async function displayShowDetails() {
@@ -274,7 +356,6 @@ async function displayShowDetails() {
 
   displayBackdropImage(show.backdrop_path);
 
-  console.log(movie);
 }
 
 function addCommasToNumber(number) {
@@ -291,6 +372,8 @@ function highlightActiveLink() {
   })
 }
 
+
+
 function init() {  
   switch(global.currentPage) {
     case "/":
@@ -303,17 +386,21 @@ function init() {
       displayPopularShows();
       break;
 
-    case "/movie-details.html":
+    case "/movie-details.html":      
       displayMovieDetails();
       break;
 
     case "/show-details.html":
       displayShowDetails();
       break;
+
+    case "/search.html":
+      search();
+      break;
   }
 
   highlightActiveLink();
-  // console.log(global.currentPage);
+  
 
 }
 

@@ -6,6 +6,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="lib/swiper.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="script.js" defer></script>
   <script src="lib/swiper.js" defer></script>
   
@@ -53,6 +54,33 @@
   <h2>NOW PLAYING</h2>
   <div class="swiper">
     <div class="swiper-wrapper"></div>
+  </div>
+</section>
+
+<!-- Search Movies -->
+<section class="search">
+  <div class="container">
+    <div id="alert"></div>
+    <form action="/search.html" class="search-form">
+      <!-- movies and shows radio box -->
+      <div class="search-radio">
+        <input type="radio" id="movie" name="type" value="movie" checked />
+        <label for="movie">Movies</label>
+        <input type="radio" id="tv" name="type" value="tv" />
+        <label for="tv">TV Shows</label>
+      </div>
+      <div class="search-flex">
+        <input
+          type="text"
+          name="search-term"
+          id="search-term"
+          placeholder="Enter search term"
+        />
+        <button class="btn" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </form>
   </div>
 </section>
 
