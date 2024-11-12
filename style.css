@@ -306,19 +306,14 @@ section.now-playing h2 {
 
 .search .container form button {
   flex: 1;
-  display: block;
-  width: 100%;
+  display: block; 
+   width: 100%;
   padding: 10px;
   border-radius: 5px;
   height: 50px;
-  cursor: pointer;
-  background: var(--color-secondary);
-  color: #000;
+  cursor: pointer; 
 }
 
-.search .container form button:hover {
-  background: rgb(153, 138, 7);
-}
 
 /* Alert */
 .alert {
@@ -333,4 +328,42 @@ section.now-playing h2 {
 
 .error {
   background: red;
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.page-counter {
+  margin-top: 10px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background: var(--color-secondary);
+  color: #000;
+}
+
+.btn:disabled {
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  background: transparent;
+  color: #fff;
 }
