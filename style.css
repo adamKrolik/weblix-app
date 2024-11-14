@@ -367,3 +367,7 @@ section.now-playing h2 {
   background: transparent;
   color: #fff;
 }
+
+#search-results-heading {
+  text-align: center;
+}

@@ -34,9 +34,9 @@ async function search() {
   global.search.type = urlParams.get('type');
   global.search.term = urlParams.get('search-term');
   
-  // if(sessionStorage.getItem('page') !== null) {
-  //   global.search.page = sessionStorage.getItem('page'); 
-  // } 
+  if(sessionStorage.getItem('page') !== null) {
+    global.search.page = sessionStorage.getItem('page'); 
+  } 
 
   if(global.search.term !== '' && global.search.term !== null) {
     const { results, total_pages, page, total_results } = await searchAPIData();
@@ -65,13 +65,13 @@ function displaySearchResults(results) {
   document.querySelector('#search-results-heading').innerHTML = '';
   document.querySelector('#pagination').innerHTML = '';
 
-  // sessionStorage.setItem('page', global.search.page);
+  sessionStorage.setItem('page', global.search.page);
   
   results.forEach((result) => {
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-      <a href="/${global.search.type === 'movie' ? 'movie' : 'show'}-details.html?id=${result.id}&page=${global.search.page}">   
+      <a href="/${global.search.type === 'movie' ? 'movie' : 'show'}-details.html?id=${result.id}">   
         ${
           result.poster_path
           ?
@@ -455,11 +455,11 @@ function highlightActiveLink() {
   })
 }
 
-// function clearSessionStorage() {
-//   if(window.location.pathname !== '/search.html' && window.location.pathname !== '/movie-details.html' && window.location.pathname !== '/show-details.html') {
-//     sessionStorage.clear();
-//   }
-// }
+function clearSessionStorage() {
+  if(window.location.pathname !== '/search.html' && window.location.pathname !== '/movie-details.html' && window.location.pathname !== '/show-details.html') {
+    sessionStorage.clear();
+  }
+}
 
 function init() {  
   switch(global.currentPage) {
@@ -487,7 +487,10 @@ function init() {
   }
 
   highlightActiveLink();
-  // clearSessionStorage(); 
+  clearSessionStorage(); 
+  document.getElementById('search-term').addEventListener('keyup', () => {
+    sessionStorage.clear();
+  });
 
 }
 
