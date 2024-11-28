@@ -266,8 +266,6 @@ async function displayPopularMovies() {
 async function displayPopularShows() {
   const data = await fetchAPIData('tv/popular');
 
-  console.log(data.results);
-
   data.results.forEach((show) => {
     const div = document.createElement('div');
     div.classList.add('card');
@@ -467,6 +465,9 @@ function init() {
     case "/index.html":
       displaySlider()
       displayPopularMovies();
+      document.getElementById('search-term').addEventListener('keyup', () => {
+        sessionStorage.clear();
+      });
       break;
 
     case "/shows.html":
@@ -483,14 +484,14 @@ function init() {
 
     case "/search.html":
       search();
+      document.getElementById('search-term').addEventListener('keyup', () => {
+        sessionStorage.clear();
+      });
       break;
   }
 
   highlightActiveLink();
   clearSessionStorage(); 
-  document.getElementById('search-term').addEventListener('keyup', () => {
-    sessionStorage.clear();
-  });
 
 }
 
